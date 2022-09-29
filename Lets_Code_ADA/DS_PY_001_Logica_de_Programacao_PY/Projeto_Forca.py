@@ -43,6 +43,13 @@ def verificar_letra(palavra_sorteada: str, letra: str, letras_descobertas: list)
     for index, elemento in enumerate(palavra_sorteada):
         if (letra == elemento):
             letras_descobertas[index] = elemento
+    pass
+
+
+def limpar_tela():
+    import os
+    os.system('cls' if os.name == 'nt' else 'clear')
+    pass
 
 
 def jogar():
@@ -56,6 +63,7 @@ def jogar():
     while (not ganhou):
         letra = solicitar_letra()
         if (letra in palavra_sorteada):
+            limpar_tela()
             verificar_letra(palavra_sorteada, letra, letras_descobertas)
             print(f'{"".join(letras_descobertas)}\n')
             if ("".join(letras_descobertas) == palavra_sorteada):
@@ -64,10 +72,12 @@ def jogar():
         else:
             chances -= 1
             if (chances == 0):
+                limpar_tela()
                 print(f'\nVocê PERDEU!!!')
                 print(f'\nPalavra era: {palavra_sorteada}\n')
                 break
             else:
+                limpar_tela()
                 print(f'\n{"".join(letras_descobertas)}')
                 print(f'\nVocê ainda tem {chances} tentativas.\n')
 
