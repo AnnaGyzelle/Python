@@ -34,7 +34,7 @@ def solicitar_letra():
     return letra
 
 
-def lista_letras(palavra_sorteada: str) -> list:
+def lista_underline(palavra_sorteada: str) -> list:
     letras_descobertas = (len(palavra_sorteada)*"_ ").split(" ")[:-1]
     return letras_descobertas
 
@@ -56,11 +56,13 @@ def jogar():
 
     palavra_sorteada, chances = sortear_palavra()
     comecar(palavra_sorteada, chances)
-    letras_descobertas = lista_letras(palavra_sorteada)
+    letras_descobertas = lista_underline(palavra_sorteada)
 
-    ganhou = False
+    # ganhou = False
+    max_tentativas = len(palavra_sorteada) + chances
 
-    while (not ganhou):
+    for i in range(max_tentativas):
+        # while (not ganhou):
         letra = solicitar_letra()
         if (letra in palavra_sorteada):
             limpar_tela()
@@ -68,7 +70,7 @@ def jogar():
             print(f'{"".join(letras_descobertas)}\n')
             if ("".join(letras_descobertas) == palavra_sorteada):
                 print(f'VOCÊ GANHOU!!!\n')
-                ganhou = True
+                # ganhou = True
         else:
             chances -= 1
             if (chances == 0):
