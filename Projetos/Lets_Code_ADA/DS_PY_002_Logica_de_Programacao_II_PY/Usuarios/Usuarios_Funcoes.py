@@ -1,12 +1,14 @@
-def usuarios_lista():
+def usuarios_lista_ler_gravar(gravar=False):
     import json
 
+    if gravar == False:
+        with open("usuarios_lista.json", encoding="utf-8") as arquivo:
+            usuarios_lista = json.load(arquivo)
 
-with open("dados.json", encoding="utf-8") as meu_json:
-    dados = json.load(meu_json)
+    with open("usuarios_lista.json", "w") as arquivo:
+        json.dump(usuarios_lista, "usuarios_lista.json", indent=4)
 
-
-print(dados)
+    return usuarios_lista
 
 
 def usuario_inserir():
@@ -26,4 +28,4 @@ def usuario_infomacoes():
 
 
 def usuarios_consultar():
-    pass
+    print(usuarios_lista_ler_gravar())
