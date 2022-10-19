@@ -1,6 +1,6 @@
 import os, time
 
-from DS_PY_002_Logica_de_Programacao_II_PY.Usuarios.Usuarios_Funcoes import *
+from Usuarios.Usuarios_Funcoes import *
 
 
 def limpar_tela():
@@ -33,9 +33,9 @@ def run():
 
     menu_principal()
 
-    opcao = int(input("Escolha uma, entre as opções acima: "))
+    opcao = escolher()
 
-    opcao = menu_principal_escolher(opcao)
+    menu_principal_escolher(opcao)
 
     return opcao
 
@@ -43,24 +43,19 @@ def run():
 def menu_principal_escolher(opcao):
     match opcao:
         case 1:
-            # return usuario_inserir()
-            return print("1")
+            return usuario_inserir()
         case 2:
-            # return usuario_excluir()
-            return print("2")
+            return usuario_excluir()
         case 3:
-            # return usuario_atualizar()
-            return print("3")
+            return usuario_atualizar()
         case 4:
-            # return usuario_infomacoes()
-            return print("4")
+            return usuario_consultar()
         case 5:
-            # return usuarios_consultar()
-            return print("5")
+            return usuarios_consultar()
         case 6:
-            pass
+            return usuarios_ativos()
         case 7:
-            pass
+            return usuarios_exclidos()
         case 0:
             return sistema_sair()
         case _:
@@ -76,6 +71,3 @@ def sistema_sair():
     print("| Até a próxima. |")
     print("------------------\n")
     pass
-
-
-run()
