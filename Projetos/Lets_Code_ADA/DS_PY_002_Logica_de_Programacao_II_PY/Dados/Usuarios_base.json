@@ -3,30 +3,30 @@
         "Status": true,
         "Nome": "Henrique",
         "Telefone": "78774123",
-        "Endereco": "Rua do Python"
+        "Endereço": "Rua do Python"
     },
     "2": {
         "Status": true,
         "Nome": "Alex",
         "Telefone": "23546312",
-        "Endereco": "Modulo II"
+        "Endereço": "Modulo II"
     },
     "3": {
         "Status": true,
         "Nome": "João",
         "Telefone": "45786327",
-        "Endereco": "Av. Faria Lima"
+        "Endereço": "Av. Faria Lima"
     },
     "4": {
         "Status": false,
         "Nome": "Maria",
         "Telefone": "74125823",
-        "Endereco": "Av. Paulista"
+        "Endereço": "Av. Paulista"
     },
     "5": {
         "Status": false,
         "Nome": "Juliana",
         "Telefone": "41230578",
-        "Endereco": "Rua das Flores"
+        "Endereço": "Rua das Flores"
     }
 }

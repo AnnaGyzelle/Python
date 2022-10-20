@@ -21,6 +21,7 @@ def menu_principal():
     | 5 - Informações de todos os usuários                       |
     | 6 - Informações de todos os usuários ativos                |
     | 7 - Informações de todos os usuários excluídos             |
+    | 8 - Reativar usuário                                       |
     | 0 - Sair                                                   |
     --------------------------------------------------------------
     """
@@ -29,7 +30,7 @@ def menu_principal():
 
 def run():
 
-    limpar_tela()
+    # limpar_tela()
 
     menu_principal()
 
@@ -43,19 +44,29 @@ def run():
 def menu_principal_escolher(opcao):
     match opcao:
         case 1:
-            return usuario_inserir()
+            usuario_inserir()
+            return run()
         case 2:
-            return usuario_excluir()
+            usuario_excluir()
+            return run()
         case 3:
-            return usuario_atualizar()
+            usuario_atualizar()
+            return run()
         case 4:
-            return usuario_consultar()
+            usuario_consultar()
+            return run()
         case 5:
-            return usuarios_consultar()
+            print(usuarios_consultar())
+            return run()
         case 6:
-            return usuarios_ativos()
+            usuarios_ativos()
+            return run()
         case 7:
-            return usuarios_exclidos()
+            usuarios_exclidos()
+            return run()
+        case 8:
+            usuario_ativar()
+            return run()
         case 0:
             return sistema_sair()
         case _:

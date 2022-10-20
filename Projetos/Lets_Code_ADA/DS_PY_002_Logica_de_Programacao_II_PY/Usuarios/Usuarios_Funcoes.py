@@ -1,26 +1,28 @@
-import json, time
+import os, json, time
 
 # from Main import *
 
 # caminho = os.path.abspath("Usuarios_arquivo.json")
 # print(os.getcwd())
 # print(caminho)
-# os.path.join(os.getcwd(), 'Usuarios_arquivo.json')
+# os.path.join(os.getcwd(),"dados\contatos.json")
 # os.path.join(os.path.dirname(__file__), "Usuarios.json")
+# caminho = "h:\\Meu Drive\\Estudos\\Programação\\Python\\Lets_Code\\Git\\Python\\Projetos\\Lets_Code_ADA\\DS_PY_002_Logica_de_Programacao_II_PY\\Dados\\Usuarios.json"
 
-CAMINHO = "h:\\Meu Drive\\Estudos\\Programação\\Python\\Lets_Code\\Git\\Python\\Projetos\\Lets_Code_ADA\\DS_PY_002_Logica_de_Programacao_II_PY\\Dados\\Usuarios.json"
+CAMINHO = "DS_PY_002_Logica_de_Programacao_II_PY\\Dados\\Usuarios.json"
+caminho = os.path.join(os.getcwd(), CAMINHO)
 
 
 def usuarios_arquivo_ler():
-    with open(CAMINHO, "r") as arquivo:
+    with open(caminho, "r", encoding="utf-8") as arquivo:
         usuarios_dicionario = json.load(arquivo)
-
     return usuarios_dicionario
 
 
 def usuarios_gravar_arquivo(usuarios_dicionario):
-    with open(CAMINHO, "w") as arquivo:
-        json.dump(usuarios_dicionario, arquivo, indent=4)
+    with open(caminho, "w", encoding="utf-8") as arquivo:
+        json.dump(usuarios_dicionario, arquivo, indent=4, ensure_ascii=False)
+    return usuarios_dicionario
 
 
 def usuarios_consultar():
@@ -45,7 +47,7 @@ def usuario_pedir_telefone():
 
 
 def usuario_pedir_endereco():
-    endereco = input("Digite o endereco do usuario: ")
+    endereco = input("Digite o endereço do usuario: ")
     return endereco
 
 
@@ -59,22 +61,23 @@ def usuario_consultar():
 
 
 def usuario_inserir(
-    nome: str,
     telefone: str = "Nao Informado",
     endereco: str = "Nao Informado",
 ):
     nome = usuario_pedir_nome()
-    telefone = usuario_pedir_telefone()
-    endereco = usuario_pedir_endereco()
+    while not nome:
+        nome = usuario_pedir_nome()
+    telefone = usuario_pedir_telefone() or "Não informado"
+    endereco = usuario_pedir_endereco() or "Não informado"
     usuarios_dicionario = usuarios_consultar()
     usuarios_dicionario[str(len(usuarios_dicionario) + 1)] = {
         "Status": True,
         "Nome": nome,
         "Telefone": telefone,
-        "Endereco": endereco,
+        "Endereço": endereco,
     }
     usuarios_gravar_arquivo(usuarios_dicionario)
-    print("Adiconado com sucesso.")
+    print("\nAdiconado com sucesso.")
     return usuarios_consultar()
 
 
@@ -89,10 +92,11 @@ def menu_atualizar():
     -----------------------------------
     |        Funcionalidades:         |
     |                                 |
-    | 1 - Atualizar nome              |
-    | 2 - Atualizar telefone          |
-    | 3 - Atualizar endereço          |
-    | 4 - Atualizar cadastro completo |
+    | 1 - Ativar/Desativar usuário    |
+    | 2 - Atualizar nome              |
+    | 3 - Atualizar telefone          |
+    | 4 - Atualizar endereço          |
+    | 5 - Atualizar cadastro completo |
     ___________________________________
     """
     )
@@ -102,21 +106,23 @@ def menu_atualizar_ecolher(opcao, id):
     usuarios = usuarios_consultar()
     match opcao:
         case 1:
+            usuario_ativar_desativar()
+        case 2:
             nome = usuario_pedir_nome()
             usuarios[id]["Nome"] = nome
             usuarios_gravar_arquivo(usuarios)
-            return "Alterado com sucesso."
-        case 2:
+            return "\nAlterado com sucesso."
+        case 3:
             telefone = usuario_pedir_telefone()
             usuarios[id]["Telefone"] = telefone
             usuarios_gravar_arquivo(usuarios)
-            return "Alterado com sucesso."
-        case 3:
-            endereco = usuario_pedir_endereco()
-            usuarios[id]["Endereco"] = endereco
-            usuarios_gravar_arquivo(usuarios)
-            return "Alterado com sucesso."
+            return "\nAlterado com sucesso."
         case 4:
+            endereco = usuario_pedir_endereco()
+            usuarios[id]["Endereço"] = endereco
+            usuarios_gravar_arquivo(usuarios)
+            return "\nAlterado com sucesso."
+        case 5:
             nome = usuario_pedir_nome()
             endereco = usuario_pedir_endereco()
             telefone = usuario_pedir_telefone()
@@ -124,10 +130,10 @@ def menu_atualizar_ecolher(opcao, id):
                 "Status": True,
                 "Nome": nome,
                 "Telefone": telefone,
-                "Endereco": endereco,
+                "Endereço": endereco,
             }
             usuarios_gravar_arquivo(usuarios)
-            return "Alterado com sucesso."
+            return "\nAlterado com sucesso."
         case _:
             print("\n-------------------------------------------------")
             print("| Opção inválida, escolha uma das opções acima. |")
@@ -148,7 +154,7 @@ def usuario_excluir():
     id, usuario = usuario_consultar()
     usuarios[id]["Status"] = False
     usuarios_gravar_arquivo(usuarios)
-    return print(f"Usuário {usuario['Nome']} desativado com sucesso")
+    return print(f"\nUsuário {usuario['Nome']} desativado com sucesso")
 
 
 def usuarios_ativos():
@@ -165,3 +171,14 @@ def usuarios_exclidos():
         if usuario["Status"] == False:
             desativados[id] = usuario
     return print(desativados)
+
+
+def usuario_ativar_desativar():
+    id, usuario = usuario_consultar()
+    print(f"\nUsuario: {usuario_infomacoes(usuario['Nome'])}")
+    usuarios = usuarios_consultar()
+    if usuarios[id]["Status"] == True:
+        usuarios[id]["Status"] == False
+    usuarios[id]["Status"] = True
+    usuarios_gravar_arquivo(usuarios)
+    return "Reativado com sucesso."
