@@ -1,14 +1,7 @@
 import os, json, time
 
-# from tabulate import tabulate
+from tabulate import tabulate
 
-# from Main import *
-
-# caminho = os.path.abspath("Usuarios_arquivo.json")
-# print(os.getcwd())
-# print(caminho)
-# os.path.join(os.getcwd(),"dados\contatos.json")
-# os.path.join(os.path.dirname(__file__), "Usuarios.json")
 # caminho = "h:\\Meu Drive\\Estudos\\Programação\\Python\\Lets_Code\\Git\\Python\\Projetos\\Lets_Code_ADA\\DS_PY_002_Logica_de_Programacao_II_PY\\Dados\\Usuarios.json"
 
 CAMINHO = "DS_PY_002_Logica_de_Programacao_II_PY\\Dados\\Usuarios.json"
@@ -40,7 +33,7 @@ def usuario_infomacoes(nome: str):
 
 def usuario_pedir_nome():
     nome = input("Digite o nome do usuario: ")
-    return nome
+    return nome.title()
 
 
 def usuario_pedir_telefone():
@@ -55,10 +48,10 @@ def usuario_pedir_endereco():
 
 def usuario_consultar():
     nome = usuario_pedir_nome()
-
-    if usuario_infomacoes(nome) != None:
-        print(f"\nUsuario: {usuario_infomacoes(nome)}")
-        return usuario_infomacoes(nome)
+    usuario = usuario_infomacoes(nome)
+    if usuario != None:
+        tabela(usuario)
+        return usuario
     print(f"Usuário {nome} não encontrado!")
 
 
@@ -80,12 +73,40 @@ def usuario_inserir(
     }
     usuarios_gravar_arquivo(usuarios_dicionario)
     print("\nAdiconado com sucesso.")
+    menu_inserir_escolher()
     return usuarios_consultar()
 
 
+def menu_inserir_usuario():
+    print(
+        """
+    -----------------------------------
+    |        Funcionalidades:         |
+    |                                 |
+    | 1 - Inserir outro usuário       |
+    | 2 - Votar ao Menu Pincipal      |
+    ___________________________________
+    """
+    )
+
+
+def menu_inserir_escolher():
+    menu_inserir_usuario()
+    opcao = escolher()
+    match opcao:
+        case 1:
+            return usuario_inserir()
+        case 2:
+            return None
+
+
 def escolher():
-    opcao = int(input("Escolha uma, entre as opções acima: "))
-    return opcao
+    opcao = input("Escolha uma, entre as opções acima: ")
+    if opcao.isdigit():
+        return int(opcao)
+    else:
+        print("Digite apenas o NÚMERO da opção escolhida.")
+        return escolher()
 
 
 def menu_atualizar():
@@ -164,15 +185,15 @@ def usuarios_ativos():
     for id, usuario in usuarios_consultar().items():
         if usuario["Status"] == True:
             ativos[id] = usuario
-    return print(ativos)
+    return ativos
 
 
 def usuarios_exclidos():
-    desativados = {}
+    inativos = {}
     for id, usuario in usuarios_consultar().items():
         if usuario["Status"] == False:
-            desativados[id] = usuario
-    return print(desativados)
+            inativos[id] = usuario
+    return inativos
 
 
 def usuario_ativar_desativar():
@@ -189,16 +210,30 @@ def usuario_ativar_desativar():
     return print("Status do usuario alterado com sucesso.")
 
 
-# def tabela(id, usuario):
-#     tabela = []
-#     headers = ["NOME", "TELEFONE", "ENDEREÇO"]
-#     tabela.append(
-#         [
-#             id,
-#             usuario[id]["Status"],
-#             usuario[id]["Nome"],
-#             usuario[id]["Telefone"],
-#             usuario[id]["Endereço"],
-#         ]
-#     )
-#     print(tabulate(tabela, headers, tablefmt="simple_grid"))
+def tabela(dicionario):
+    tabela = []
+    headers = ["ID", "STATUS", "NOME", "TELEFONE", "ENDEREÇO"]
+    if type(dicionario) == dict:
+        for id, usuario in dicionario.items():
+            tabela.append(
+                [
+                    id,
+                    usuario["Status"],
+                    usuario["Nome"],
+                    usuario["Telefone"],
+                    usuario["Endereço"],
+                ]
+            )
+    else:
+        id, usuario = dicionario
+        tabela.append(
+            [
+                id,
+                usuario["Status"],
+                usuario["Nome"],
+                usuario["Telefone"],
+                usuario["Endereço"],
+            ]
+        )
+
+    print(tabulate(tabela, headers, tablefmt="simple_grid"))

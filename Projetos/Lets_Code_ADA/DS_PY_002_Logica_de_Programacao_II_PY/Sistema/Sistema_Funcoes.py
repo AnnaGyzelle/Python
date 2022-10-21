@@ -56,13 +56,13 @@ def menu_principal_escolher(opcao):
             usuario_consultar()
             return run()
         case 5:
-            print(usuarios_consultar())
+            tabela(usuarios_consultar())
             return run()
         case 6:
-            usuarios_ativos()
+            tabela(usuarios_ativos())
             return run()
         case 7:
-            usuarios_exclidos()
+            tabela(usuarios_exclidos())
             return run()
         case 8:
             usuario_ativar_desativar()
