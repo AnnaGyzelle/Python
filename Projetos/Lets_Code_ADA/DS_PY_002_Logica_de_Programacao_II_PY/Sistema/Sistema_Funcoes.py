@@ -22,6 +22,7 @@ def menu_principal():
     | 6 - Informações de todos os usuários ativos                |
     | 7 - Informações de todos os usuários excluídos             |
     | 8 - Ativar/Desativar usuário                               |
+    | 9 - Limpar Tela                                            |
     | 0 - Sair                                                   |
     --------------------------------------------------------------
     """
@@ -29,8 +30,6 @@ def menu_principal():
 
 
 def run():
-
-    # limpar_tela()
 
     menu_principal()
 
@@ -50,7 +49,8 @@ def menu_principal_escolher(opcao):
             usuario_excluir()
             return run()
         case 3:
-            usuario_atualizar()
+            usuario = usuario_consultar()
+            usuario_atualizar(usuario)
             return run()
         case 4:
             usuario_consultar()
@@ -65,7 +65,11 @@ def menu_principal_escolher(opcao):
             tabela(usuarios_exclidos())
             return run()
         case 8:
-            usuario_ativar_desativar()
+            usuario = usuario_consultar()
+            usuario_ativar_desativar(usuario)
+            return run()
+        case 9:
+            limpar_tela()
             return run()
         case 0:
             return sistema_sair()

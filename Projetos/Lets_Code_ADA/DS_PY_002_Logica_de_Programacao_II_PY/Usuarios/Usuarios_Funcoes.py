@@ -53,6 +53,7 @@ def usuario_consultar():
         tabela(usuario)
         return usuario
     print(f"Usuário {nome} não encontrado!")
+    usuario_consultar()
 
 
 def usuario_inserir(
@@ -125,11 +126,12 @@ def menu_atualizar():
     )
 
 
-def menu_atualizar_ecolher(opcao, id):
+def menu_atualizar_ecolher(opcao, usuario):
+    id, _ = usuario
     usuarios = usuarios_consultar()
     match opcao:
         case 1:
-            usuario_ativar_desativar()
+            usuario_ativar_desativar(usuario)
         case 2:
             nome = usuario_pedir_nome()
             usuarios[id]["Nome"] = nome
@@ -165,19 +167,18 @@ def menu_atualizar_ecolher(opcao, id):
             return escolher()
 
 
-def usuario_atualizar():
-    id, _ = usuario_consultar()
+def usuario_atualizar(usuario):
     menu_atualizar()
     opcao = escolher()
-    menu_atualizar_ecolher(opcao, id)
+    menu_atualizar_ecolher(opcao, usuario)
 
 
 def usuario_excluir():
     usuarios = usuarios_consultar()
-    id, usuario = usuario_consultar()
+    id, _ = usuario_consultar()
     usuarios[id]["Status"] = False
     usuarios_gravar_arquivo(usuarios)
-    return print(f"\nUsuário {usuario['Nome']} desativado com sucesso")
+    return print(f"\nUsuário modificado com sucesso")
 
 
 def usuarios_ativos():
@@ -196,8 +197,8 @@ def usuarios_exclidos():
     return inativos
 
 
-def usuario_ativar_desativar():
-    id, usuario = usuario_consultar()
+def usuario_ativar_desativar(usuario):
+    id, _ = usuario
     usuarios = usuarios_consultar()
     if usuarios[id]["Status"] == True:
         usuarios[id]["Status"] = False
@@ -205,8 +206,7 @@ def usuario_ativar_desativar():
     else:
         usuarios[id]["Status"] = True
         usuarios_gravar_arquivo(usuarios)
-
-    print(f"\nUsuario: {usuario_infomacoes(usuario['Nome'])}\n")
+    tabela(usuario_infomacoes(usuario[1]["Nome"]))
     return print("Status do usuario alterado com sucesso.")
 
 
