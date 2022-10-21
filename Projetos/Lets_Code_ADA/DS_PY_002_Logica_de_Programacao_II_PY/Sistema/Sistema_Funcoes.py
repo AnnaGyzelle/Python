@@ -21,7 +21,7 @@ def menu_principal():
     | 5 - Informações de todos os usuários                       |
     | 6 - Informações de todos os usuários ativos                |
     | 7 - Informações de todos os usuários excluídos             |
-    | 8 - Reativar usuário                                       |
+    | 8 - Ativar/Desativar usuário                               |
     | 0 - Sair                                                   |
     --------------------------------------------------------------
     """
@@ -65,7 +65,7 @@ def menu_principal_escolher(opcao):
             usuarios_exclidos()
             return run()
         case 8:
-            usuario_ativar()
+            usuario_ativar_desativar()
             return run()
         case 0:
             return sistema_sair()

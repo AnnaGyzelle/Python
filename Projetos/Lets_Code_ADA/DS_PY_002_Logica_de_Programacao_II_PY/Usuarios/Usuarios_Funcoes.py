@@ -1,5 +1,7 @@
 import os, json, time
 
+# from tabulate import tabulate
+
 # from Main import *
 
 # caminho = os.path.abspath("Usuarios_arquivo.json")
@@ -175,10 +177,28 @@ def usuarios_exclidos():
 
 def usuario_ativar_desativar():
     id, usuario = usuario_consultar()
-    print(f"\nUsuario: {usuario_infomacoes(usuario['Nome'])}")
     usuarios = usuarios_consultar()
     if usuarios[id]["Status"] == True:
-        usuarios[id]["Status"] == False
-    usuarios[id]["Status"] = True
-    usuarios_gravar_arquivo(usuarios)
-    return "Reativado com sucesso."
+        usuarios[id]["Status"] = False
+        usuarios_gravar_arquivo(usuarios)
+    else:
+        usuarios[id]["Status"] = True
+        usuarios_gravar_arquivo(usuarios)
+
+    print(f"\nUsuario: {usuario_infomacoes(usuario['Nome'])}\n")
+    return print("Status do usuario alterado com sucesso.")
+
+
+# def tabela(id, usuario):
+#     tabela = []
+#     headers = ["NOME", "TELEFONE", "ENDEREÇO"]
+#     tabela.append(
+#         [
+#             id,
+#             usuario[id]["Status"],
+#             usuario[id]["Nome"],
+#             usuario[id]["Telefone"],
+#             usuario[id]["Endereço"],
+#         ]
+#     )
+#     print(tabulate(tabela, headers, tablefmt="simple_grid"))
