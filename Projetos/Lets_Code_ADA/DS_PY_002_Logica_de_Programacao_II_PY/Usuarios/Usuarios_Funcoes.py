@@ -33,12 +33,20 @@ def usuario_infomacoes(nome: str):
 
 def usuario_pedir_nome():
     nome = input("Digite o nome do usuario: ")
-    return nome.title()
+    if nome.isalpha():
+        return nome.title()
+    else:
+        print("Digite apenas LETRAS no nome.")
+        return usuario_pedir_nome()
 
 
 def usuario_pedir_telefone():
     telefone = input("Digite o telefone do usuario: ")
-    return telefone
+    if telefone.isdigit():
+        return telefone
+    else:
+        print("Digite apenas NÚMEROS.")
+        return usuario_pedir_telefone()
 
 
 def usuario_pedir_endereco():
