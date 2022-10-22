@@ -36,7 +36,7 @@ def usuario_pedir_nome():
     if nome.isalpha():
         return nome.title()
     else:
-        print("Digite apenas LETRAS no nome.")
+        print("\nDigite apenas LETRAS no nome.\n")
         return usuario_pedir_nome()
 
 
@@ -45,7 +45,7 @@ def usuario_pedir_telefone():
     if telefone.isdigit():
         return telefone
     else:
-        print("Digite apenas NÚMEROS.")
+        print("\nDigite apenas NÚMEROS.\n")
         return usuario_pedir_telefone()
 
 

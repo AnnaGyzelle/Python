@@ -28,29 +28,5 @@
         "Nome": "Juliana",
         "Telefone": "41230578",
         "Endereço": "Rua das Flores"
-    },
-    "6": {
-        "Status": true,
-        "Nome": "Renato",
-        "Telefone": "Não informado",
-        "Endereço": "Não informado"
-    },
-    "7": {
-        "Status": false,
-        "Nome": "Elza",
-        "Telefone": "Não informado",
-        "Endereço": "Não informado"
-    },
-    "8": {
-        "Status": true,
-        "Nome": "Renato",
-        "Telefone": "Não informado",
-        "Endereço": "Não informado"
-    },
-    "9": {
-        "Status": true,
-        "Nome": "Nani",
-        "Telefone": "Não informado",
-        "Endereço": "Não informado"
     }
 }
