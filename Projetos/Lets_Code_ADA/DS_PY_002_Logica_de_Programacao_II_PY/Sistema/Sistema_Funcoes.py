@@ -11,20 +11,15 @@ def limpar_tela():
 def menu_principal():
     return print(
         f""" 
-    --------------------------------------------------------------
-    | Boas vindo(a) ao nosso sistema de cadastro de usuário(a):  |
-    |                                                            |
-    | 1 - Inserir usuário                                        |   
-    | 2 - Excluir usuário                                        |   
-    | 3 - Atualizar usuário                                      |   
-    | 4 - Informações de um usuário                              |
-    | 5 - Informações de todos os usuários                       |
-    | 6 - Informações de todos os usuários ativos                |
-    | 7 - Informações de todos os usuários excluídos             |
-    | 8 - Ativar/Desativar usuário                               |
-    | 9 - Limpar Tela                                            |
-    | 0 - Sair                                                   |
-    --------------------------------------------------------------
+    ---------------------------------------------------------------------------------------------------------
+    |                     Boas vindo(a) ao nosso sistema de cadastro de usuário(a):                         |
+    |                                                                                                       |
+    |   1 - Inserir usuário                              |   2 - Excluir usuário                            |   
+    |   3 - Atualizar usuário                            |   4 - Informações de um usuário                  |   
+    |   5 - Informações de todos os usuários             |   6 - Informações de todos os usuários ativos    |   
+    |   7 - Informações de todos os usuários excluídos   |   8 - Ativar/Desativar usuário                   |
+    |   9 - Limpar Tela                                  |   0 - Sair                                       |
+    ---------------------------------------------------------------------------------------------------------
     """
     )
 
