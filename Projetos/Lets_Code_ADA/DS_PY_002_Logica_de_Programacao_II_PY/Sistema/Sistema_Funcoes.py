@@ -24,7 +24,7 @@ def menu_principal():
     )
 
 
-def run():
+def comecar():
 
     menu_principal()
 
@@ -39,33 +39,33 @@ def menu_principal_escolher(opcao):
     match opcao:
         case 1:
             usuario_inserir()
-            return run()
+            return comecar()
         case 2:
             usuario_excluir()
-            return run()
+            return comecar()
         case 3:
             usuario = usuario_consultar()
             usuario_atualizar(usuario)
-            return run()
+            return comecar()
         case 4:
             usuario_consultar()
-            return run()
+            return comecar()
         case 5:
             tabela(usuarios_consultar())
-            return run()
+            return comecar()
         case 6:
             tabela(usuarios_ativos())
-            return run()
+            return comecar()
         case 7:
             tabela(usuarios_exclidos())
-            return run()
+            return comecar()
         case 8:
             usuario = usuario_consultar()
             usuario_ativar_desativar(usuario)
-            return run()
+            return comecar()
         case 9:
             limpar_tela()
-            return run()
+            return comecar()
         case 0:
             return sistema_sair()
         case _:
@@ -73,7 +73,7 @@ def menu_principal_escolher(opcao):
             print("| Opção inválida, escolha uma das opções acima. |")
             print("-------------------------------------------------\n")
             time.sleep(3)
-            return run()
+            return comecar()
 
 
 def sistema_sair():

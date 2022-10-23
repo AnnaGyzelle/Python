@@ -2,6 +2,8 @@ import os, json, time
 
 from tabulate import tabulate
 
+import Sistema.Sistema_Funcoes as ss
+
 # caminho = "h:\\Meu Drive\\Estudos\\Programação\\Python\\Lets_Code\\Git\\Python\\Projetos\\Lets_Code_ADA\\DS_PY_002_Logica_de_Programacao_II_PY\\Dados\\Usuarios.json"
 
 CAMINHO = "DS_PY_002_Logica_de_Programacao_II_PY\\Dados\\Usuarios.json"
@@ -24,7 +26,7 @@ def usuarios_consultar():
     return usuarios_arquivo_ler()
 
 
-def usuario_infomacoes(nome: str):
+def usuario_informacoes(nome: str):
     for id, usuario in usuarios_consultar().items():
         if usuario["Nome"] == nome:
             return id, usuario
@@ -42,11 +44,10 @@ def usuario_pedir_nome():
 
 def usuario_pedir_telefone():
     telefone = input("Digite o telefone do usuario: ")
-    if telefone.isdigit():
+    if not telefone.isdigit() and telefone == "":
         return telefone
     else:
         print("\nDigite apenas NÚMEROS.\n")
-        return usuario_pedir_telefone()
 
 
 def usuario_pedir_endereco():
@@ -56,12 +57,33 @@ def usuario_pedir_endereco():
 
 def usuario_consultar():
     nome = usuario_pedir_nome()
-    usuario = usuario_infomacoes(nome)
+    usuario = r(nome)
     if usuario != None:
         tabela(usuario)
         return usuario
     print(f"Usuário {nome} não encontrado!")
     usuario_consultar()
+
+
+def usuario_repetido(nome, telefone, endereco):
+    for id, usuario in usuarios_consultar().items():
+        if (
+            usuario["Status"] == True
+            and usuario["Nome"] == nome
+            and usuario["Telefone"] == telefone
+            and usuario["Endereço"] == endereco
+        ):
+            print(f"\nUsuário -> {usuario['Nome']} já inserido e ativo\n")
+            return menu_inserir_escolher()
+        elif (
+            usuario["Status"] == False
+            and usuario["Nome"] == nome
+            and usuario["Telefone"] == telefone
+            and usuario["Endereço"] == endereco
+        ):
+            print(f"\nUsuário -> {usuario['Nome']} já inserido e agora reativado\n")
+            usuario = id, usuario
+            return usuario_ativar_desativar(usuario)
 
 
 def usuario_inserir(
@@ -73,6 +95,7 @@ def usuario_inserir(
         nome = usuario_pedir_nome()
     telefone = usuario_pedir_telefone() or "Não informado"
     endereco = usuario_pedir_endereco() or "Não informado"
+    usuario_repetido(nome, telefone, endereco)
     usuarios_dicionario = usuarios_consultar()
     usuarios_dicionario[str(len(usuarios_dicionario) + 1)] = {
         "Status": True,
@@ -81,7 +104,7 @@ def usuario_inserir(
         "Endereço": endereco,
     }
     usuarios_gravar_arquivo(usuarios_dicionario)
-    print("\nAdiconado com sucesso.")
+    # print("\nAdiconado com sucesso.")
     menu_inserir_escolher()
     return usuarios_consultar()
 
@@ -106,7 +129,7 @@ def menu_inserir_escolher():
         case 1:
             return usuario_inserir()
         case 2:
-            return None
+            return ss.comecar()
 
 
 def escolher():
@@ -183,10 +206,11 @@ def usuario_atualizar(usuario):
 
 def usuario_excluir():
     usuarios = usuarios_consultar()
-    id, _ = usuario_consultar()
+    id, usuario = usuario_consultar()
     usuarios[id]["Status"] = False
     usuarios_gravar_arquivo(usuarios)
-    return print(f"\nUsuário modificado com sucesso")
+    tabela((usuario["Nome"]))
+    return print(f"\nStatus do usuário modificado com sucesso")
 
 
 def usuarios_ativos():
@@ -214,7 +238,7 @@ def usuario_ativar_desativar(usuario):
     else:
         usuarios[id]["Status"] = True
         usuarios_gravar_arquivo(usuarios)
-    tabela(usuario_infomacoes(usuario[1]["Nome"]))
+    tabela(usuario_informacoes(usuario[1]["Nome"]))
     return print("Status do usuario alterado com sucesso.")
 
 
